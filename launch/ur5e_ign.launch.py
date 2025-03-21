@@ -6,6 +6,7 @@ from launch.actions import (
     IncludeLaunchDescription,
     OpaqueFunction,
     RegisterEventHandler,
+    ExecuteProcess
 )
 
 from launch.conditions import IfCondition, UnlessCondition
@@ -133,9 +134,7 @@ def launch_setup(context, *args, **kwargs):
         )
 
     # Active controllers
-    active_list = [
-        "joint_state_broadcaster", "cartesian_motion_controller"
-    ]
+    active_list = ["joint_state_broadcaster", "cartesian_motion_controller"]
     active_spawners = [controller_spawner(controller) for controller in active_list]
 
     # Inactive controllers
@@ -207,6 +206,7 @@ def launch_setup(context, *args, **kwargs):
         rviz_node,
         ignition_launch_description,
         ignition_spawn_robot,
+        teleop_term,
         #rqt_joint_trajectory_controller,
     ] + active_spawners + inactive_spawners
 
